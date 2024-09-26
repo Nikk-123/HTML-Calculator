@@ -6,127 +6,139 @@
     <title>Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            display: grid;
-            place-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        form {
-            width: 260px;
-            height: 320px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"] {
-            width: 100%;
-            height: 40px;
-            margin-bottom: 10px;
-            text-align: right;
-            font-size: 1.5em;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-        .button {
-            width: 50px;
-            margin-bottom: 6px;
-            height: 40px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border: none;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #d4d4d4;
-        }
-        .button-delete {
-            background-color: #f44336;
-            color: #fff;
-        }
-        .button-delete:hover {
-            background-color: #e53935;
-        }
+       body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+#calculator {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#output {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+button {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    font-size: 22px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+button:active {
+    background-color: #bbb;
+}
+
+button#C {
+    background-color: #ff6961;
+    color: white;
+}
+
+button#C:hover {
+    background-color: #e55b55;
+}
+
+button#C:active {
+    background-color: #c14741;
+}
+
+button#= {
+    background-color: #4caf50;
+    color: white;
+}
+
+button#= :hover {
+    background-color: #45a049;
+}
+
+button#= :active {
+    background-color: #388e3c;
+}
+
     </style>
 </head>
 <body>
-    <form name="calc">
-        <input type="text" name="display" id="display" readonly>
+   <div id="calculator">
+    <p id="output"></p>
 
-        <input type="button" class="button button-delete" value="X" onclick="deleteLastDigit()">
-        <input type="button" class="button" value="%" onclick="calculator('%')">
-        <input type="button" class="button" value="+/-" onclick="toggleSign()">
-        <input type="button" class="button" value="/" onclick="calculator('/')">
+    <button id="1">1</button>
+    <button id="2">2</button>
+    <button id="3">3</button>
+    <button id="+">+</button>
 
-        <input type="button" class="button" value="7" onclick="calculator('7')">
-        <input type="button" class="button" value="8" onclick="calculator('8')">
-        <input type="button" class="button" value="9" onclick="calculator('9')">
-        <input type="button" class="button" value="*" onclick="calculator('*')">
+    <button id="4">4</button>
+    <button id="5">5</button>
+    <button id="6">6</button>
+    <button id="-">-</button>
 
-        <input type="button" class="button" value="4" onclick="calculator('4')">
-        <input type="button" class="button" value="5" onclick="calculator('5')">
-        <input type="button" class="button" value="6" onclick="calculator('6')">
-        <input type="button" class="button" value="-" onclick="calculator('-')">
+    <button id="7">7</button>
+    <button id="8">8</button>
+    <button id="9">9</button>
+    <button id="*">*</button>
 
-        <input type="button" class="button" value="1" onclick="calculator('1')">
-        <input type="button" class="button" value="2" onclick="calculator('2')">
-        <input type="button" class="button" value="3" onclick="calculator('3')">
-        <input type="button" class="button" value="+" onclick="calculator('+')">
+    <button id="C">C</button>
+    <button id="0">0</button>
+    <button id="=">=</button>
+    <button id="/">/</button>
+</div>
 
-        <input type="button" class="button" value="0" onclick="calculator('0')">
-        <input type="button" class="button" value="." onclick="calculator('.')">
-        <input type="button" class="button" value="C" onclick="clearDisplay()">
-        <input type="button" class="button" value="=" onclick="calculateResult()">
-    </form>
 
     <script>
-        let expression = '';
+const buttons = document.querySelectorAll('button');
+const clear = document.getElementById('C');
+const output = document.getElementById('output');
+const equal = document.getElementById('=');
 
-        function calculator(value) {
-            if (value === '%') {
-                expression = (eval(expression) / 100).toString();
-            } else {
-                expression += value;
-            }
-            document.getElementById('display').value = expression;
+// Listen for the "=" button click to evaluate the expression
+equal.addEventListener('click', function() {
+    // Evaluate the content of the output and display the result
+    try {
+        output.innerText = eval(output.innerText);
+    } catch (error) {
+        output.innerText = 'Error'; // Handle invalid expressions
+    }
+});
+
+// Listen for the "C" button click to clear the output
+clear.addEventListener('click', function() {
+    output.innerText = '';
+});
+
+// Add click event listener for all buttons to append their value to the output
+buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        if (button.id !== '=' && button.id !== 'C') { // Ignore "=" and "C"
+            output.innerText += button.id;
         }
-
-        function clearDisplay() {
-            expression = '';
-            document.getElementById('display').value = '';
-        }
-
-        function calculateResult() {
-            try {
-                document.getElementById('display').value = eval(expression);
-                expression = eval(expression);
-            } catch (error) {
-                document.getElementById('display').value = 'Error';
-            }
-        }
-
-        function deleteLastDigit() {
-            expression = expression.slice(0, -1);
-            document.getElementById('display').value = expression;
-        }
-
-        function toggleSign() {
-            if (expression) {
-                expression = (-eval(expression)).toString();
-                document.getElementById('display').value = expression;
-            }
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    });
+});
 </body>
 </html>
