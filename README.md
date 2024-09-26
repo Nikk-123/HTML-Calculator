@@ -44,7 +44,7 @@ To get a local copy of the project up and running, follow these simple steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/calculator.git
+   https://github.com/Nikk-123/HTML-Calculator.git
    ```
 
 2. **Navigate to the project directory**:
