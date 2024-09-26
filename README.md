@@ -72,11 +72,4 @@ Contributions, issues, and feature requests are welcome! Feel free to check out 
 
 ### ⭐ Don't forget to give this project a star if you found it helpful!
 
----
 
-### Notes:
-
-1. Replace placeholder links with your actual GitHub repository URL or GitHub Pages demo.
-2. Add images or screenshots to visually enhance your README file. You can add them directly to the repo or link from an image hosting service.
-
-This structure will make your README file not only informative but also visually appealing!
